@@ -13,3 +13,6 @@ Cues taken from:
 - [x] Lazy eval (`if`)
 - [x] Modify scopes (`define`)
 - [x] Lists (`quote`)
+- [x] REPL
+- [ ] Reassignment (`set!`)
+- [ ] Custom functions (`lambda`)

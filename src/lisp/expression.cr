@@ -1,4 +1,5 @@
 require "./binding.cr"
+require "./evaluation.cr"
 
 class Lisp::Expression
   alias List = Array(Lisp::Expression)
@@ -20,6 +21,16 @@ class Lisp::Expression
 
   def ==(other)
     other.is_a?(Lisp::Expression) && other.value == @value
+  end
+
+  def to_s
+    own_value = @value
+    if own_value.is_a?(List)
+      items = own_value.map { |v| v.to_s as String }
+      "(" + items.join(" ") + ")"
+    else
+      value.to_s
+    end
   end
 
   def self.express(value) : Lisp::Expression
