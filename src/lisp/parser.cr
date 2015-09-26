@@ -35,8 +35,14 @@ class Lisp::Parser
   end
 
   private def atomize(token : String) : Lisp::Expression
-    if /\d+/ =~ token
+    if /^\d+$/ =~ token
       Lisp::Expression.new(token.to_i)
+    elsif /^\d+\.\d+$/ =~ token
+      Lisp::Expression.new(token.to_f)
+    elsif token == "true"
+      Lisp::Expression.new(true)
+    elsif token == "false"
+      Lisp::Expression.new(false)
     else
       Lisp::Expression.new(token)
     end

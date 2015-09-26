@@ -6,7 +6,7 @@ describe "Lisp::Functions" do
   describe "If" do
     it "doesnt evaluate the alternate if the test is true" do
       expressions = Lisp::Parser.new.parse("
-        (if (= 5 5)
+        (if (= 5.0 5)
             (+ 2 2)
             (go crazy)
         )
@@ -39,7 +39,8 @@ describe "Lisp::Functions" do
     it "modifies the current binding" do
       expressions = Lisp::Parser.new.parse("(define ten 10)")
       expr_eval = Lisp::Evaluation.new(expressions, global_binding)
-      expr_eval.return_expression
+      expr_eval.return_expression # force it to run
+
       expressions = Lisp::Parser.new.parse("(= ten 10)")
       expr_eval = Lisp::Evaluation.new(expressions, global_binding)
       expr_eval.return_expression.value.should eq(true)
@@ -47,7 +48,11 @@ describe "Lisp::Functions" do
   end
 
   describe "Quote" do
-    pending "returns the arguments as a list" do
+    it "returns the arguments as a list" do
+      expressions = Lisp::Parser.new.parse("(quote ten 10 true)")
+      list_expressions = Lisp::Expression.express(["ten",  10, true])
+      first_result = expressions.return_expression(global_binding)
+      first_result.should eq(list_expressions)
     end
   end
 end

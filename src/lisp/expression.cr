@@ -3,7 +3,8 @@ require "./binding.cr"
 class Lisp::Expression
   alias List = Array(Lisp::Expression)
   alias Function = (List, Lisp::Binding -> Lisp::Expression)
-  alias SingularType = Bool | Int32 | String | Function
+  alias Number = Int32 | Float64
+  alias SingularType = Bool | Number | String | Function
   alias Type = SingularType | List
   alias Expressable = Type | Array(Expressable)
 
@@ -15,6 +16,10 @@ class Lisp::Expression
   def return_expression(binding) : Lisp::Expression
     evaluation = Lisp::Evaluation.new(self, binding)
     evaluation.return_expression
+  end
+
+  def ==(other)
+    other.is_a?(Lisp::Expression) && other.value == @value
   end
 
   def self.express(value) : Lisp::Expression

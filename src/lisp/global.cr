@@ -19,17 +19,19 @@ module Lisp
     Lisp::Expression.new(%fn_proc)
   end
 
+  alias Number = Lisp::Expression::Number
   GLOBAL = {
-    "+" => binary_operation(:+, [String, Int32]),
-    "-" => binary_operation(:-, [Int32]),
-    "*" => binary_operation(:*, [Int32]),
-    "/" => binary_operation(:/, [Int32]),
-    "=" => binary_operation(:==, [String, Int32]),
-    "<" => binary_operation(:<, [String, Int32]),
-    ">" => binary_operation(:>, [String, Int32]),
-    "<=" => binary_operation(:<=, [String, Int32]),
-    ">=" => binary_operation(:>=, [String, Int32]),
+    "+" => binary_operation(:+, [String, Number]),
+    "-" => binary_operation(:-, [Number]),
+    "*" => binary_operation(:*, [Number]),
+    "/" => binary_operation(:/, [Number]),
+    "=" => binary_operation(:==, [String, Number]),
+    "<" => binary_operation(:<, [String, Number]),
+    ">" => binary_operation(:>, [String, Number]),
+    "<=" => binary_operation(:<=, [String, Number]),
+    ">=" => binary_operation(:>=, [String, Number]),
     "if" => Lisp::Expression.new(Lisp::Functions::If),
     "define" => Lisp::Expression.new(Lisp::Functions::Define),
+    "quote" => Lisp::Expression.new(Lisp::Functions::Quote),
   }
 end

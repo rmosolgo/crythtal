@@ -11,5 +11,5 @@ Cues taken from:
 - [x] Build expressions
 - [x] Evaluate expressions in bindings
 - [x] Lazy eval (`if`)
-- [ ] Modify scopes (`define`)
-- [ ] Lists (`quote`)
+- [x] Modify scopes (`define`)
+- [x] Lists (`quote`)

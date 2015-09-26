@@ -23,4 +23,8 @@ module Lisp::Functions
     end
     var_value
   }
+
+  Quote = SystemFunction.new { |args, binding|
+    return_expression = Lisp::Expression.new(args)
+  }
 end
