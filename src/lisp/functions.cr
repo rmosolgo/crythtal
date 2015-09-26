@@ -14,6 +14,13 @@ module Lisp::Functions
   }
 
   Define = SystemFunction.new { |args, binding|
-
+    var_name = args[0].value
+    if var_name.is_a?(String)
+      var_value = args[1]
+      binding[var_name] = var_value
+    else
+      var_value = Lisp::Expression.new(false)
+    end
+    var_value
   }
 end

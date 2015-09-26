@@ -36,7 +36,13 @@ describe "Lisp::Functions" do
   end
 
   describe "Define" do
-    pending "modifies the current binding" do
+    it "modifies the current binding" do
+      expressions = Lisp::Parser.new.parse("(define ten 10)")
+      expr_eval = Lisp::Evaluation.new(expressions, global_binding)
+      expr_eval.return_expression
+      expressions = Lisp::Parser.new.parse("(= ten 10)")
+      expr_eval = Lisp::Evaluation.new(expressions, global_binding)
+      expr_eval.return_expression.value.should eq(true)
     end
   end
 

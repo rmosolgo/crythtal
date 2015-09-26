@@ -7,7 +7,12 @@ class Lisp::Evaluation
   end
 
   private def evaluate(value : Lisp::Expression::SingularType)
-    @expression
+    binding = @binding
+    if value.is_a?(String) && binding[value]?
+      binding[value]
+    else
+      @expression
+    end
   end
 
   private def evaluate(value : Array(Lisp::Expression))
