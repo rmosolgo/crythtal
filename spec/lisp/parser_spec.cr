@@ -16,13 +16,13 @@ describe "Parser" do
       parser = Lisp::Parser.new
       expression = parser.parse("
         (if
-          (= 5 5.0)
+          (= -5 -5.0)
           (do true)
           (do 11)
         )")
       get_plain_values(expression).should eq(
         ["if",
-          ["=", 5, 5],
+          ["=", -5, -5],
           ["do", true],
           ["do", 11],
         ]

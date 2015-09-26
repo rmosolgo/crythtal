@@ -30,13 +30,15 @@ describe "Lisp::Procedure" do
     it "can be called after defining" do
       repl = Lisp::Repl.new
       repl.eval("
-        (define add (
-          lambda (a b) (begin
-            (+ a b)
-          )
-          ))")
-      result = repl.eval("(add 1 2)")
-      result.value.should eq(3)
+        (define make-account
+          (lambda (balance)
+            (lambda (amt)
+              (begin (define balance (+ balance amt))
+                     balance))))
+      ")
+      repl.eval("(define account1 (make-account 100.00))")
+      result = repl.eval("(account1 -20.00)")
+      result.value.should eq(80.0)
     end
   end
 end
