@@ -5,6 +5,7 @@ require "./lisp/evaluation.cr"
 require "./lisp/global.cr"
 require "./lisp/functions.cr"
 require "./lisp/repl.cr"
+require "./lisp/lambda.cr"
 
 
 # To start a REPL

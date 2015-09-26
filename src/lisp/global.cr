@@ -33,5 +33,7 @@ module Lisp
     "if" => Lisp::Expression.new(Lisp::Functions::If),
     "define" => Lisp::Expression.new(Lisp::Functions::Define),
     "quote" => Lisp::Expression.new(Lisp::Functions::Quote),
+    "lambda" => Lisp::Expression.new(Lisp::Functions::Lambda),
+    "begin" => Lisp::Expression.new(Lisp::Functions::Begin),
   }
 end

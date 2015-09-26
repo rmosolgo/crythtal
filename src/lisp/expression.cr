@@ -43,9 +43,9 @@ class Lisp::Expression
 
   def self.unexpress(lisp_values) : Expressable
     if lisp_values.is_a?(Lisp::Expression)
-      get_plain_values(lisp_values.value)
+      unexpress(lisp_values.value)
     elsif lisp_values.is_a?(Array)
-      lisp_values.map { |v| get_plain_values(v) as Expressable }
+      lisp_values.map { |v| unexpress(v) as Expressable }
     else
       lisp_values
     end

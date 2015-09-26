@@ -15,15 +15,21 @@ class Lisp::Repl
       raw_input = gets
       if raw_input.is_a?(String)
         begin
-          expression = @parser.parse(raw_input)
-          result = expression.return_expression(@binding)
+          result = eval(raw_input)
           puts result.to_s
         rescue err : Exception
-          puts err.to_s
+          puts err.to_s + "\n" + err.backtrace.join("\n")
         end
+
       elsif raw_input.nil?
+        puts
         break
       end
     end
+  end
+
+  def eval(raw_input)
+    expression = @parser.parse(raw_input)
+    expression.return_expression(@binding)
   end
 end

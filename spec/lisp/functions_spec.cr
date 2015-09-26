@@ -55,4 +55,16 @@ describe "Lisp::Functions" do
       first_result.should eq(list_expressions)
     end
   end
+
+  describe "Lambda" do
+    it "creates a user-defined function" do
+      expressions = Lisp::Parser.new.parse("
+        (lambda (a b) (begin
+          (a + b)
+          )
+        )")
+      result = expressions.return_expression(global_binding)
+      result.value.should be_a(Lisp::Expression::Function)
+    end
+  end
 end
