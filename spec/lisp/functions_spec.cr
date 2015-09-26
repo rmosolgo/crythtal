@@ -25,6 +25,14 @@ describe "Lisp::Functions" do
       expr_eval = Lisp::Evaluation.new(expressions, global_binding)
       expr_eval.return_expression.value.should eq("combinedstrings")
     end
+
+    it "doesnt require an alternate" do
+      expressions = Lisp::Parser.new.parse("
+        (if (< a b) 1)
+      ")
+      expr_eval = Lisp::Evaluation.new(expressions, global_binding)
+      expr_eval.return_expression.value.should eq(1)
+    end
   end
 
   describe "Define" do

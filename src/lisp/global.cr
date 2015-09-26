@@ -25,6 +25,10 @@ module Lisp
     "*" => binary_operation(:*, [Int32]),
     "/" => binary_operation(:/, [Int32]),
     "=" => binary_operation(:==, [String, Int32]),
+    "<" => binary_operation(:<, [String, Int32]),
+    ">" => binary_operation(:>, [String, Int32]),
+    "<=" => binary_operation(:<=, [String, Int32]),
+    ">=" => binary_operation(:>=, [String, Int32]),
     "if" => Lisp::Expression.new(Lisp::Functions::If),
   }
 end

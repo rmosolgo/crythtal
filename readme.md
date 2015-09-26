@@ -10,6 +10,6 @@ Cues taken from:
 - [x] Parse strings
 - [x] Build expressions
 - [x] Evaluate expressions in bindings
-- [ ] Lists
+- [x] Lazy eval (`if`)
 - [ ] Modify scopes (`define`)
-- [ ] Lazy eval (`if`)
+- [ ] Lists (`quote`)

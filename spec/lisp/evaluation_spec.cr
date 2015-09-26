@@ -35,10 +35,10 @@ describe "Lisp::Evaluation" do
     expr_eval.return_expression.value.should eq(true)
   end
 
-  it "Makes lazy calls" do
+  it "Lets functions evaluate their own argument expressions" do
     # The "else" condition would raise an error
     expressions = Lisp::Parser.new.parse("
-      (if (= 5 5)
+      (if (>= 6 5)
           (+ 2 2)
           (go crazy)
       )
