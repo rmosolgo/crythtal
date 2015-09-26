@@ -11,7 +11,7 @@ describe "Lisp::Binding" do
   describe "GLOBALS" do
     it "contains binary operations" do
       binding = Lisp::Binding.new(Lisp::Binding::GLOBALS)
-      args = Lisp::Expression.express([2,2])
+      args = Lisp::Expression.express([2,2]).value as Array
 
       add_fn = binding["+"].value as Lisp::Expression::Function
       add_fn.call(args).value.should eq(4)

@@ -4,8 +4,7 @@ class Lisp::Binding
   alias VariablesTable = Hash(String, Lisp::Expression)
 
   macro binary_operation(name)
-    Lisp::Expression.new(-> (arg_exp : Lisp::Expression) {
-      args = arg_exp.value as Array(Lisp::Expression)
+    Lisp::Expression.new(-> (args : Lisp::Expression::List) {
       left = args[0].value as Int32
       right = args[1].value as Int32
       result = left {{name.id}} right

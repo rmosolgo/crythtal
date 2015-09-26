@@ -1,7 +1,8 @@
 class Lisp::Expression
-  alias Function = (Lisp::Expression -> Lisp::Expression)
   alias List = Array(Lisp::Expression)
-  alias Type = Int32 | String | Function | List
+  alias Function = (List -> Lisp::Expression)
+  alias SingularType = Int32 | String | Function
+  alias Type = SingularType | List
   alias Expressable = Type | Array(Expressable)
 
   property :value
