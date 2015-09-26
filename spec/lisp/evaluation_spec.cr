@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-global_binding = Lisp::Binding.new(Lisp::Binding::GLOBALS)
+global_binding = Lisp::Binding.new(Lisp::GLOBAL)
 
 describe "Lisp::Evaluation" do
   it "Gets a return value from a simple expression" do
@@ -26,12 +26,24 @@ describe "Lisp::Evaluation" do
       Lisp::Expression.new(6),
     ])
 
-    subtraction_call = Lisp::Expression.new([
-      Lisp::Expression.new("-"),
-      Lisp::Expression.new(20),
+    test_call = Lisp::Expression.new([
+      Lisp::Expression.new("="),
+      Lisp::Expression.new(11),
       addition_call,
     ])
-    expr_eval = Lisp::Evaluation.new(subtraction_call, global_binding)
-    expr_eval.return_expression.value.should eq(9)
+    expr_eval = Lisp::Evaluation.new(test_call, global_binding)
+    expr_eval.return_expression.value.should eq(true)
+  end
+
+  it "Makes lazy calls" do
+    # The "else" condition would raise an error
+    expressions = Lisp::Parser.new.parse("
+      (if (= 5 5)
+          (+ 2 2)
+          (go crazy)
+      )
+    ")
+    expr_eval = Lisp::Evaluation.new(expressions, global_binding)
+    expr_eval.return_expression.value.should eq(4)
   end
 end

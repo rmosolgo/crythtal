@@ -14,10 +14,6 @@ class Lisp::Evaluation
     function_name = value[0].value as String
     function_def = @binding[function_name].value as Lisp::Expression::Function
     function_args = value[1..-1]
-    evaluated_function_args = function_args.map do |arg_expression|
-      evaluation = Lisp::Evaluation.new(arg_expression, @binding)
-      evaluation.return_expression
-    end
-    function_def.call(evaluated_function_args)
+    function_def.call(function_args, @binding) as Lisp::Expression
   end
 end
