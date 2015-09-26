@@ -5,8 +5,8 @@ class Lisp::Lambda
 
   def call(args, caller_binding)
     parent_binding = @scope
-      .merge(caller_binding)
-      .merge(bind_arguments(@param_names, args))
+      .append(caller_binding)
+      .append(bind_arguments(@param_names, args))
 
     @body.return_expression(parent_binding)
   end

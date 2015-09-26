@@ -11,6 +11,16 @@ describe "Lisp::Binding" do
       binding = Lisp::Binding.new({} of String => Lisp::Expression)
       binding["missingKey"]
     end
+
+    it "gets & sets values from parent binding" do
+      parent = Lisp::Binding.new(Lisp::GLOBAL)
+      child = parent.append({"new" => Lisp::Expression.express(1) })
+      # Gets from parent
+      child["+"].value.should be_a(Lisp::Expression::Function)
+      # Sets into parent
+      child["+"] = Lisp::Expression.express("newValue")
+      parent["+"].should eq(Lisp::Expression.express("newValue"))
+    end
   end
 
   describe "GLOBALS" do

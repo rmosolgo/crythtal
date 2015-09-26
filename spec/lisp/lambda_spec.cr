@@ -20,7 +20,7 @@ describe "Lisp::Procedure" do
     it "uses the given binding" do
       params = [] of Lisp::Expression
       body = Lisp::Expression.express(["+", "first",  5])
-      scope = global_binding.merge({"first" => Lisp::Expression.express(10)})
+      scope = global_binding.append({"first" => Lisp::Expression.express(10)})
       procedure = Lisp::Lambda.new(params, body, scope)
       arguments = [] of Lisp::Expression
       result = procedure.call(arguments, scope)
