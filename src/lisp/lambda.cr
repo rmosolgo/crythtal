@@ -4,9 +4,14 @@ class Lisp::Lambda
   end
 
   def call(args, caller_binding)
+
+    evaluted_arguments = args.map do |arg|
+      arg.return_expression(caller_binding) as Lisp::Expression
+    end
+
     parent_binding = @scope
       .append(caller_binding)
-      .append(bind_arguments(@param_names, args))
+      .append(bind_arguments(@param_names, evaluted_arguments))
 
     @body.return_expression(parent_binding)
   end
@@ -16,8 +21,7 @@ class Lisp::Lambda
     new_values = {} of String => Lisp::Expression
     param_names.each_with_index do |param_name, idx|
       if param_name.is_a?(String)
-        value = argument_values[idx]
-        new_values[param_name] = value
+        new_values[param_name] = argument_values[idx]
       end
     end
     new_values

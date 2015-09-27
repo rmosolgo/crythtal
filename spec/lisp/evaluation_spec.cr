@@ -46,4 +46,16 @@ describe "Lisp::Evaluation" do
     expr_eval = Lisp::Evaluation.new(expressions, global_binding)
     expr_eval.return_expression.value.should eq(4)
   end
+
+  it "Executes recursive functions" do
+    repl = Lisp::Repl.new
+    repl.eval("
+      (define sum-to (lambda(n) (begin
+        (if (= n 0)
+            0
+            (+ n (sum-to (- n 1)))))))
+    ")
+    result = repl.eval("(sum-to 10)")
+    result.value.should eq(55)
+  end
 end

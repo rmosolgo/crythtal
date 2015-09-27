@@ -7,9 +7,15 @@ describe "Lisp::Binding" do
       binding["name"].value.should eq("Crystal")
     end
 
-    pending "raises errors on missing keys" do
+    it "raises errors on missing keys" do
       binding = Lisp::Binding.new({} of String => Lisp::Expression)
-      binding["missingKey"]
+      raised_err = nil
+      begin
+        binding["missingKey"]
+      rescue err : Exception
+        raised_err = err
+      end
+      raised_err.should be_a(Exception)
     end
 
     it "gets & sets values from parent binding" do

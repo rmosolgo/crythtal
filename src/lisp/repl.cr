@@ -16,7 +16,7 @@ class Lisp::Repl
       STDOUT.print("> " + (" " * indent))
       STDOUT.flush
       raw_input = gets
-      if raw_input.is_a?(String)
+      if raw_input.is_a?(String) && raw_input.size > 1
         buffer += raw_input
         begin
           result = eval(buffer)
