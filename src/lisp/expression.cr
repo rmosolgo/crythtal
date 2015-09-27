@@ -28,8 +28,10 @@ class Lisp::Expression
     if own_value.is_a?(List)
       items = own_value.map { |v| v.to_s as String }
       "(" + items.join(" ") + ")"
+    elsif own_value.is_a?(Function)
+      "#<Function #{own_value.pointer.hash}>"
     else
-      value.to_s
+      own_value.to_s
     end
   end
 

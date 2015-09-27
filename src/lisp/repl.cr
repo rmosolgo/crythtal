@@ -9,14 +9,28 @@ class Lisp::Repl
 
   def run
     puts "Lisp REPL (cntl-d to quit): "
+    buffer = ""
+    depth = 0
+    indent = 0
     while true
-      STDOUT.print("> ")
+      STDOUT.print("> " + (" " * indent))
       STDOUT.flush
       raw_input = gets
       if raw_input.is_a?(String)
+        buffer += raw_input
         begin
-          result = eval(raw_input)
+          result = eval(buffer)
+          buffer = ""
+          indent = 0
+          depth = 0
           puts result.to_s
+        rescue nf : Lisp::Parser::NotFinishedException
+          if nf.depth > depth
+            indent += 1
+          elsif nf.depth < depth
+            indent -= 1
+          end
+          depth = nf.depth
         rescue err : Exception
           puts err.to_s + "\n" + err.backtrace.join("\n")
         end

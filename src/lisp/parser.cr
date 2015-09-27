@@ -1,9 +1,16 @@
 require "./expression.cr"
 
 class Lisp::Parser
+  class NotFinishedException < Exception
+    property :depth
+    def initialize(@depth)
+      super("Parser found unterminated expression")
+    end
+  end
+
   def parse(source_string)
     tokens = tokenize(source_string)
-    expression = build_ast(tokens)
+    expression = build_ast(tokens, 0)
   end
 
   private def tokenize(source_string)
@@ -14,16 +21,21 @@ class Lisp::Parser
     return tokens
   end
 
-  private def build_ast(tokens)
+  private def build_ast(tokens, depth)
     if tokens.size == 0
       raise("unexpected EOF while reading")
     end
     next_token = tokens[0]
     tokens.shift(1)
     if next_token == "("
+      depth += 1
       expression = [] of Lisp::Expression
-      while tokens[0] != ")"
-        expression.push(build_ast(tokens))
+      while tokens[0]? != ")"
+        if tokens.size > 0
+          expression.push(build_ast(tokens, depth))
+        else
+          raise NotFinishedException.new(depth)
+        end
       end
       tokens.shift(1) # remove )
       Lisp::Expression.new(expression)
