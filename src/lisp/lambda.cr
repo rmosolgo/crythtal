@@ -20,9 +20,7 @@ class Lisp::Lambda
   private def bind_arguments(param_names, argument_values)
     new_values = {} of String => Lisp::Expression
     param_names.each_with_index do |param_name, idx|
-      if param_name.is_a?(String)
-        new_values[param_name] = argument_values[idx]
-      end
+      new_values[param_name] = argument_values[idx]
     end
     new_values
   end
